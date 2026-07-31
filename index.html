@@ -93,22 +93,6 @@ src="https://www.facebook.com/tr?id=1370352901869321&ev=PageView&noscript=1"
       transition: all 0.25s ease;
     }
 
-    .card::before {
-      content: '';
-      position: absolute;
-      inset: -1px;
-      border-radius: 33px;
-      padding: 1px;
-      background: conic-gradient(from 0deg, transparent, rgba(56, 189, 248, 0.2), transparent 70%);
-      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-      mask-composite: exclude;
-      -webkit-mask-composite: xor;
-      pointer-events: none;
-      animation: rotateGlow 10s linear infinite;
-    }
-
-  
-
     .avatar-wrapper {
       position: relative;
       display: inline-block;
@@ -334,7 +318,7 @@ src="https://www.facebook.com/tr?id=1370352901869321&ev=PageView&noscript=1"
 </head>
 <body>
   <div class="card">
-    
+
     <!-- Profile image -->
     <div class="avatar-wrapper">
       <img
@@ -355,7 +339,7 @@ src="https://www.facebook.com/tr?id=1370352901869321&ev=PageView&noscript=1"
      𝑭𝒓𝒆𝒆 𝑫𝒂𝒊𝒍𝒚 𝑻𝒊𝒑𝒔 & 𝑺𝒕𝒓𝒂𝒕𝒆𝒈𝒊𝒆𝒔 𝑱𝒐𝒊𝒏 𝒕𝒉𝒆 𝑭𝒂𝒔𝒕𝒆𝒔𝒕-𝑮𝒓𝒐𝒘𝒊𝒏𝒈 𝑪𝒐𝒎𝒎𝒖𝒏𝒊𝒕𝒚
     </p>
 
-  <!-- Main CTA with real Telegram icon -->
+    <!-- Main CTA with real Telegram icon -->
     <a href="https://t.me/+18aEMHimsmE4NDM1" target="_blank" rel="noopener" class="telegram-btn" id="subscribeButton">
       <span>
         <!-- Real Telegram icon (SVG) -->
@@ -366,9 +350,8 @@ src="https://www.facebook.com/tr?id=1370352901869321&ev=PageView&noscript=1"
       </span>
     </a>
 
-<br>
+    <br><br>
 
-<br>
     <!-- Trust statistics -->
     <div class="trust-stats">
       <div class="stat-item">
@@ -378,13 +361,16 @@ src="https://www.facebook.com/tr?id=1370352901869321&ev=PageView&noscript=1"
         <span class="stat-highlight">Secure</span> & Safe
       </div>
       <div class="stat-item member-badge">
-        <span id="memberCount">50,000</span>+ Members
+        <span id="memberCount">0</span>+ Members
       </div>
     </div>
 
- 
+  </div>
+
   <script>
-    
+    (function () {
+      var subscribeBtn = document.getElementById('subscribeButton');
+
       function trackSubscribe() {
         if (typeof fbq !== 'undefined') {
           fbq('track', 'Subscribe', {
@@ -397,18 +383,34 @@ src="https://www.facebook.com/tr?id=1370352901869321&ev=PageView&noscript=1"
       }
 
       if (subscribeBtn) {
-        subscribeBtn.addEventListener('click', function(e) {
-          trackSubscribe();
-        });
+        subscribeBtn.addEventListener('click', trackSubscribe);
+      }
+
+      function animateMemberCount() {
+        var el = document.getElementById('memberCount');
+        if (!el) return;
+
+        var target = 50000;
+        var duration = 1500; // ms
+        var startTime = null;
+
+        function step(timestamp) {
+          if (!startTime) startTime = timestamp;
+          var progress = Math.min((timestamp - startTime) / duration, 1);
+          var current = Math.floor(progress * target);
+          el.textContent = current.toLocaleString('en-US');
+          if (progress < 1) {
+            requestAnimationFrame(step);
+          } else {
+            el.textContent = target.toLocaleString('en-US');
+          }
+        }
+
+        requestAnimationFrame(step);
       }
 
       animateMemberCount();
-
     })();
-
-setTimeout(() => {
-    window.location.href = "https://t.me/+18aEMHimsmE4NDM1";
-}, 3000);
   </script>
 </body>
 </html>
